@@ -9,6 +9,7 @@ import Chapter5 from './chapters/Chapter5'
 import Chapter6 from './chapters/Chapter6'
 import Chapter7 from './chapters/Chapter7'
 import Chapter8 from './chapters/Chapter8'
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const chapters = [
   { id: 1, title: "What the Heck is Vibe Coding?", component: Chapter1 },
@@ -37,13 +38,23 @@ function App() {
   const CurrentChapterComponent = chapters[currentChapter - 1].component
 
   return (
-    <BookLayout
-      chapters={chapters}
-      currentChapter={currentChapter}
-      onChapterSelect={goToChapter}
-    >
-      <CurrentChapterComponent onNext={goToNextChapter} />
-    </BookLayout>
+    <HelmetProvider>
+      <Helmet>
+        <title>Learn Vibecoding</title>
+        <meta name="description" content="Learn Vibcoding the better way" />
+        <meta property="og:title" content="Learn Vibecoding" />
+        <meta property="og:description" content="Vibecoding for Everyone" />
+        <meta property="og:type" content="website" />
+        {/* Add more meta tags as needed */}
+      </Helmet>
+      <BookLayout
+        chapters={chapters}
+        currentChapter={currentChapter}
+        onChapterSelect={goToChapter}
+      >
+        <CurrentChapterComponent onNext={goToNextChapter} />
+      </BookLayout>
+    </HelmetProvider>
   )
 }
 
